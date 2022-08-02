@@ -20,7 +20,9 @@ function ImagePopup({ card, onClose }) {
           alt={card ? card.name : ""}
           src={card ? card.link : "/"}
         />
-        <p className="popup__text"/>
+        <p className="popup__text">
+          {card ? card.name : ""}
+        </p>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ function App() {
 
   const history = useHistory();
 
-  const tokenChek = () => {
+  const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
     if (!jwt) {
       return;
@@ -47,12 +47,21 @@ function App() {
   };
 
   React.useEffect(() => {
-    tokenChek();
+    checkToken();
   }, []);
 
   React.useEffect(() => {
     if (loggedIn) {
       history.push("/");
+
+      Promise.all([api.getUserInfo(), api.getCards()])
+      .then(([userData, cardsArray]) => {
+        setCurrentUser(userData);
+        setCards(cardsArray);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
   }, [loggedIn]);
 
@@ -87,17 +96,6 @@ function App() {
     localStorage.removeItem("jwt");
     history.push("/signin");
   };
-
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([userData, cardsArray]) => {
-        setCurrentUser(userData);
-        setCards(cardsArray);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
