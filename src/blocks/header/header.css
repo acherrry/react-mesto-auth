@@ -1,9 +1,10 @@
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 45px;
   border-bottom: 1px solid rgb(84, 84, 84, .7);
   min-height: 74px;
-  margin: 0 auto;
-  max-width: 880px;
 }
 
 @media screen and (max-width: 1023px) {
@@ -19,10 +20,21 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 600px) {
+  .header {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .header {
     margin: 0;
-    padding-top: 28px;
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .header {
     min-height: 56px;
   }
 }
